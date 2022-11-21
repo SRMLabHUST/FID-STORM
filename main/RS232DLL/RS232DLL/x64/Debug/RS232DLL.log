@@ -1,0 +1,196 @@
+﻿C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets(391,5): warning MSB8028: 中间目录(x64\Debug\)包含从另一个项目(RS232DLL.vcxproj)共享的文件。   这会导致错误的清除和重新生成行为。
+  Compiling CUDA source file cudaImageAdd.cu...
+  
+  C:\Users\JN Wu\Desktop\cpp\cpp\main\RS232DLL\RS232DLL>"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.6\bin\nvcc.exe" -gencode=arch=compute_52,code=\"sm_52,compute_52\" --use-local-env -ccbin "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.16.27023\bin\HostX86\x64" -x cu   -I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.6\include" -I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.6\include"  -G   --keep-dir x64\Debug  -maxrregcount=0  --machine 64 --compile -cudart static  -g  -DWIN32 -D_DEBUG -D_WINDOWS -D_USRDLL -DRS232DLL_EXPORTS -D_CRT_SECURE_NO_WARNINGS -Xcompiler "/EHsc /W3 /nologo /Od /Fdx64\Debug\vc141.pdb /FS /Zi /RTC1 /MDd " -o x64\Debug\cudaImageAdd.cu.obj "C:\Users\JN Wu\Desktop\cpp\cpp\main\RS232DLL\RS232DLL\cudaImageAdd.cu" 
+  cudaImageAdd.cu
+  logger.cpp
+c:\users\jn wu\desktop\cpp\cpp\main\rs232dll\include\nvinfer.h(5348): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+c:\users\jn wu\desktop\cpp\cpp\main\rs232dll\include\nvinfer.h(8434): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+c:\users\jn wu\desktop\cpp\cpp\main\rs232dll\rs232dll\common\errorrecorder.h(51): warning C4267: “return”: 从“size_t”转换到“int32_t”，可能丢失数据
+  DataLoader.cpp
+c:\users\jn wu\desktop\cpp\cpp\main\rs232dll\include\nvinfer.h(5348): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+c:\users\jn wu\desktop\cpp\cpp\main\rs232dll\include\nvinfer.h(8434): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\numeric(26): warning C4244: “=”: 从“_Ty”转换到“_Ty”，可能丢失数据
+          with
+          [
+              _Ty=int64_t
+          ]
+          and
+          [
+              _Ty=int
+          ]
+  c:\users\jn wu\desktop\cpp\cpp\main\rs232dll\rs232dll\common\common.h(645): note: 参见对正在编译的函数 模板 实例化“_Ty std::accumulate<const int32_t*,int,std::multiplies<int64_t>>(const _InIt,const _InIt,_Ty,_Fn)”的引用
+          with
+          [
+              _Ty=int,
+              _InIt=const int32_t *,
+              _Fn=std::multiplies<int64_t>
+          ]
+  denseDL.cpp
+c:\users\jn wu\desktop\cpp\cpp\main\rs232dll\include\nvinfer.h(5348): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+c:\users\jn wu\desktop\cpp\cpp\main\rs232dll\include\nvinfer.h(8434): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\numeric(26): warning C4244: “=”: 从“_Ty”转换到“_Ty”，可能丢失数据
+          with
+          [
+              _Ty=int64_t
+          ]
+          and
+          [
+              _Ty=int
+          ]
+  c:\users\jn wu\desktop\cpp\cpp\main\rs232dll\rs232dll\common\common.h(645): note: 参见对正在编译的函数 模板 实例化“_Ty std::accumulate<const int32_t*,int,std::multiplies<int64_t>>(const _InIt,const _InIt,_Ty,_Fn)”的引用
+          with
+          [
+              _Ty=int,
+              _InIt=const int32_t *,
+              _Fn=std::multiplies<int64_t>
+          ]
+  main.cpp
+c:\users\jn wu\desktop\cpp\cpp\main\rs232dll\include\nvinfer.h(5348): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+c:\users\jn wu\desktop\cpp\cpp\main\rs232dll\include\nvinfer.h(8434): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\numeric(26): warning C4244: “=”: 从“_Ty”转换到“_Ty”，可能丢失数据
+          with
+          [
+              _Ty=int64_t
+          ]
+          and
+          [
+              _Ty=int
+          ]
+  c:\users\jn wu\desktop\cpp\cpp\main\rs232dll\rs232dll\common\common.h(645): note: 参见对正在编译的函数 模板 实例化“_Ty std::accumulate<const int32_t*,int,std::multiplies<int64_t>>(const _InIt,const _InIt,_Ty,_Fn)”的引用
+          with
+          [
+              _Ty=int,
+              _InIt=const int32_t *,
+              _Fn=std::multiplies<int64_t>
+          ]
+  main_test.cpp
+c:\users\jn wu\desktop\cpp\cpp\main\rs232dll\include\nvinfer.h(5348): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+c:\users\jn wu\desktop\cpp\cpp\main\rs232dll\include\nvinfer.h(8434): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\numeric(26): warning C4244: “=”: 从“_Ty”转换到“_Ty”，可能丢失数据
+          with
+          [
+              _Ty=int64_t
+          ]
+          and
+          [
+              _Ty=int
+          ]
+  c:\users\jn wu\desktop\cpp\cpp\main\rs232dll\rs232dll\common\common.h(645): note: 参见对正在编译的函数 模板 实例化“_Ty std::accumulate<const int32_t*,int,std::multiplies<int64_t>>(const _InIt,const _InIt,_Ty,_Fn)”的引用
+          with
+          [
+              _Ty=int,
+              _InIt=const int32_t *,
+              _Fn=std::multiplies<int64_t>
+          ]
+  dll.cpp
+  sampleOnnxMNIST.cpp
+c:\users\jn wu\desktop\cpp\cpp\main\rs232dll\include\nvinfer.h(5348): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+c:\users\jn wu\desktop\cpp\cpp\main\rs232dll\include\nvinfer.h(8434): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+c:\users\jn wu\desktop\cpp\cpp\main\rs232dll\rs232dll\sampleonnxmnist.cpp(134): warning C4477: “fprintf”: 格式字符串“%d”需要类型“int”的参数，但可变参数 1 拥有了类型“size_t”
+  c:\users\jn wu\desktop\cpp\cpp\main\rs232dll\rs232dll\sampleonnxmnist.cpp(134): note: 请考虑在格式字符串中使用“%zd”
+c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\numeric(26): warning C4244: “=”: 从“_Ty”转换到“_Ty”，可能丢失数据
+          with
+          [
+              _Ty=int64_t
+          ]
+          and
+          [
+              _Ty=int
+          ]
+  c:\users\jn wu\desktop\cpp\cpp\main\rs232dll\rs232dll\common\common.h(645): note: 参见对正在编译的函数 模板 实例化“_Ty std::accumulate<const int32_t*,int,std::multiplies<int64_t>>(const _InIt,const _InIt,_Ty,_Fn)”的引用
+          with
+          [
+              _Ty=int,
+              _InIt=const int32_t *,
+              _Fn=std::multiplies<int64_t>
+          ]
+  正在生成代码...
+  getopt.c
+  tinytiffreader.c
+c:\users\jn wu\desktop\cpp\cpp\main\rs232dll\rs232dll\tiff\tinytiffreader.c(280): warning C4267: “return”: 从“size_t”转换到“unsigned long”，可能丢失数据
+c:\users\jn wu\desktop\cpp\cpp\main\rs232dll\rs232dll\tiff\tinytiffreader.c(325): warning C4273: “TinyTIFFReader_getLastError”: dll 链接不一致
+  c:\users\jn wu\desktop\cpp\cpp\main\rs232dll\rs232dll\tiff\tinytiffreader.h(85): note: 参见“TinyTIFFReader_getLastError”的前一个定义
+c:\users\jn wu\desktop\cpp\cpp\main\rs232dll\rs232dll\tiff\tinytiffreader.c(330): warning C4273: “TinyTIFFReader_wasError”: dll 链接不一致
+  c:\users\jn wu\desktop\cpp\cpp\main\rs232dll\rs232dll\tiff\tinytiffreader.h(98): note: 参见“TinyTIFFReader_wasError”的前一个定义
+c:\users\jn wu\desktop\cpp\cpp\main\rs232dll\rs232dll\tiff\tinytiffreader.c(335): warning C4273: “TinyTIFFReader_success”: dll 链接不一致
+  c:\users\jn wu\desktop\cpp\cpp\main\rs232dll\rs232dll\tiff\tinytiffreader.h(106): note: 参见“TinyTIFFReader_success”的前一个定义
+c:\users\jn wu\desktop\cpp\cpp\main\rs232dll\rs232dll\tiff\tinytiffreader.c(648): warning C4273: “TinyTIFFReader_getSampleData”: dll 链接不一致
+  c:\users\jn wu\desktop\cpp\cpp\main\rs232dll\rs232dll\tiff\tinytiffreader.h(214): note: 参见“TinyTIFFReader_getSampleData”的前一个定义
+c:\users\jn wu\desktop\cpp\cpp\main\rs232dll\rs232dll\tiff\tinytiffreader.c(876): warning C4273: “TinyTIFFReader_open”: dll 链接不一致
+  c:\users\jn wu\desktop\cpp\cpp\main\rs232dll\rs232dll\tiff\tinytiffreader.h(66): note: 参见“TinyTIFFReader_open”的前一个定义
+c:\users\jn wu\desktop\cpp\cpp\main\rs232dll\rs232dll\tiff\tinytiffreader.c(929): warning C4273: “TinyTIFFReader_close”: dll 链接不一致
+  c:\users\jn wu\desktop\cpp\cpp\main\rs232dll\rs232dll\tiff\tinytiffreader.h(76): note: 参见“TinyTIFFReader_close”的前一个定义
+c:\users\jn wu\desktop\cpp\cpp\main\rs232dll\rs232dll\tiff\tinytiffreader.c(938): warning C4273: “TinyTIFFReader_hasNext”: dll 链接不一致
+  c:\users\jn wu\desktop\cpp\cpp\main\rs232dll\rs232dll\tiff\tinytiffreader.h(114): note: 参见“TinyTIFFReader_hasNext”的前一个定义
+c:\users\jn wu\desktop\cpp\cpp\main\rs232dll\rs232dll\tiff\tinytiffreader.c(947): warning C4273: “TinyTIFFReader_readNext”: dll 链接不一致
+  c:\users\jn wu\desktop\cpp\cpp\main\rs232dll\rs232dll\tiff\tinytiffreader.h(123): note: 参见“TinyTIFFReader_readNext”的前一个定义
+c:\users\jn wu\desktop\cpp\cpp\main\rs232dll\rs232dll\tiff\tinytiffreader.c(955): warning C4273: “TinyTIFFReader_getWidth”: dll 链接不一致
+  c:\users\jn wu\desktop\cpp\cpp\main\rs232dll\rs232dll\tiff\tinytiffreader.h(132): note: 参见“TinyTIFFReader_getWidth”的前一个定义
+c:\users\jn wu\desktop\cpp\cpp\main\rs232dll\rs232dll\tiff\tinytiffreader.c(962): warning C4273: “TinyTIFFReader_getHeight”: dll 链接不一致
+  c:\users\jn wu\desktop\cpp\cpp\main\rs232dll\rs232dll\tiff\tinytiffreader.h(140): note: 参见“TinyTIFFReader_getHeight”的前一个定义
+c:\users\jn wu\desktop\cpp\cpp\main\rs232dll\rs232dll\tiff\tinytiffreader.c(969): warning C4273: “TinyTIFFReader_getImageDescription”: dll 链接不一致
+  c:\users\jn wu\desktop\cpp\cpp\main\rs232dll\rs232dll\tiff\tinytiffreader.h(148): note: 参见“TinyTIFFReader_getImageDescription”的前一个定义
+c:\users\jn wu\desktop\cpp\cpp\main\rs232dll\rs232dll\tiff\tinytiffreader.c(977): warning C4273: “TinyTIFFReader_getSampleFormat”: dll 链接不一致
+  c:\users\jn wu\desktop\cpp\cpp\main\rs232dll\rs232dll\tiff\tinytiffreader.h(158): note: 参见“TinyTIFFReader_getSampleFormat”的前一个定义
+c:\users\jn wu\desktop\cpp\cpp\main\rs232dll\rs232dll\tiff\tinytiffreader.c(984): warning C4273: “TinyTIFFReader_getBitsPerSample”: dll 链接不一致
+  c:\users\jn wu\desktop\cpp\cpp\main\rs232dll\rs232dll\tiff\tinytiffreader.h(167): note: 参见“TinyTIFFReader_getBitsPerSample”的前一个定义
+c:\users\jn wu\desktop\cpp\cpp\main\rs232dll\rs232dll\tiff\tinytiffreader.c(991): warning C4273: “TinyTIFFReader_getSamplesPerPixel”: dll 链接不一致
+  c:\users\jn wu\desktop\cpp\cpp\main\rs232dll\rs232dll\tiff\tinytiffreader.h(175): note: 参见“TinyTIFFReader_getSamplesPerPixel”的前一个定义
+c:\users\jn wu\desktop\cpp\cpp\main\rs232dll\rs232dll\tiff\tinytiffreader.c(1000): warning C4273: “TinyTIFFReader_countFrames”: dll 链接不一致
+  c:\users\jn wu\desktop\cpp\cpp\main\rs232dll\rs232dll\tiff\tinytiffreader.h(224): note: 参见“TinyTIFFReader_countFrames”的前一个定义
+c:\users\jn wu\desktop\cpp\cpp\main\rs232dll\rs232dll\tiff\tinytiffreader.c(1028): warning C4273: “TinyTIFFReader_getXResolution”: dll 链接不一致
+  c:\users\jn wu\desktop\cpp\cpp\main\rs232dll\rs232dll\tiff\tinytiffreader.h(182): note: 参见“TinyTIFFReader_getXResolution”的前一个定义
+c:\users\jn wu\desktop\cpp\cpp\main\rs232dll\rs232dll\tiff\tinytiffreader.c(1035): warning C4273: “TinyTIFFReader_getYResolution”: dll 链接不一致
+  c:\users\jn wu\desktop\cpp\cpp\main\rs232dll\rs232dll\tiff\tinytiffreader.h(190): note: 参见“TinyTIFFReader_getYResolution”的前一个定义
+c:\users\jn wu\desktop\cpp\cpp\main\rs232dll\rs232dll\tiff\tinytiffreader.c(1042): warning C4273: “TinyTIFFReader_getResolutionUnit”: dll 链接不一致
+  c:\users\jn wu\desktop\cpp\cpp\main\rs232dll\rs232dll\tiff\tinytiffreader.h(198): note: 参见“TinyTIFFReader_getResolutionUnit”的前一个定义
+c:\users\jn wu\desktop\cpp\cpp\main\rs232dll\rs232dll\tiff\tinytiffreader.c(1050): warning C4273: “TinyTIFFReader_getVersion”: dll 链接不一致
+  c:\users\jn wu\desktop\cpp\cpp\main\rs232dll\rs232dll\tiff\tinytiffreader.h(90): note: 参见“TinyTIFFReader_getVersion”的前一个定义
+  tinytiffwriter.c
+c:\users\jn wu\desktop\cpp\cpp\main\rs232dll\rs232dll\tiff\tinytiffwriter.c(55): warning C4273: “TinyTIFFWriter_getMaxDescriptionTextSize”: dll 链接不一致
+  c:\users\jn wu\desktop\cpp\cpp\main\rs232dll\rs232dll\tiff\tinytiffwriter.h(63): note: 参见“TinyTIFFWriter_getMaxDescriptionTextSize”的前一个定义
+c:\users\jn wu\desktop\cpp\cpp\main\rs232dll\rs232dll\tiff\tinytiffwriter.c(687): warning C4273: “TinyTIFFWriter_open”: dll 链接不一致
+  c:\users\jn wu\desktop\cpp\cpp\main\rs232dll\rs232dll\tiff\tinytiffwriter.h(134): note: 参见“TinyTIFFWriter_open”的前一个定义
+c:\users\jn wu\desktop\cpp\cpp\main\rs232dll\rs232dll\tiff\tinytiffwriter.c(795): warning C4273: “TinyTIFFWriter_close_withdescription”: dll 链接不一致
+  c:\users\jn wu\desktop\cpp\cpp\main\rs232dll\rs232dll\tiff\tinytiffwriter.h(273): note: 参见“TinyTIFFWriter_close_withdescription”的前一个定义
+c:\users\jn wu\desktop\cpp\cpp\main\rs232dll\rs232dll\tiff\tinytiffwriter.c(841): warning C4267: “初始化”: 从“size_t”转换到“uint32_t”，可能丢失数据
+c:\users\jn wu\desktop\cpp\cpp\main\rs232dll\rs232dll\tiff\tinytiffwriter.c(851): warning C4273: “TinyTIFFWriter_close_withmetadatadescription”: dll 链接不一致
+  c:\users\jn wu\desktop\cpp\cpp\main\rs232dll\rs232dll\tiff\tinytiffwriter.h(251): note: 参见“TinyTIFFWriter_close_withmetadatadescription”的前一个定义
+c:\users\jn wu\desktop\cpp\cpp\main\rs232dll\rs232dll\tiff\tinytiffwriter.c(946): warning C4273: “TinyTIFFWriter_writeImageMultiSample”: dll 链接不一致
+  c:\users\jn wu\desktop\cpp\cpp\main\rs232dll\rs232dll\tiff\tinytiffwriter.h(155): note: 参见“TinyTIFFWriter_writeImageMultiSample”的前一个定义
+c:\users\jn wu\desktop\cpp\cpp\main\rs232dll\rs232dll\tiff\tinytiffwriter.c(1063): warning C4273: “TinyTIFFWriter_writeImagePlanarReorder”: dll 链接不一致
+  c:\users\jn wu\desktop\cpp\cpp\main\rs232dll\rs232dll\tiff\tinytiffwriter.h(181): note: 参见“TinyTIFFWriter_writeImagePlanarReorder”的前一个定义
+c:\users\jn wu\desktop\cpp\cpp\main\rs232dll\rs232dll\tiff\tinytiffwriter.c(1068): warning C4273: “TinyTIFFWriter_writeImageChunkyReorder”: dll 链接不一致
+  c:\users\jn wu\desktop\cpp\cpp\main\rs232dll\rs232dll\tiff\tinytiffwriter.h(206): note: 参见“TinyTIFFWriter_writeImageChunkyReorder”的前一个定义
+c:\users\jn wu\desktop\cpp\cpp\main\rs232dll\rs232dll\tiff\tinytiffwriter.c(1073): warning C4273: “TinyTIFFWriter_writeImage”: dll 链接不一致
+  c:\users\jn wu\desktop\cpp\cpp\main\rs232dll\rs232dll\tiff\tinytiffwriter.h(227): note: 参见“TinyTIFFWriter_writeImage”的前一个定义
+c:\users\jn wu\desktop\cpp\cpp\main\rs232dll\rs232dll\tiff\tinytiffwriter.c(1078): warning C4273: “TinyTIFFWriter_close”: dll 链接不一致
+  c:\users\jn wu\desktop\cpp\cpp\main\rs232dll\rs232dll\tiff\tinytiffwriter.h(261): note: 参见“TinyTIFFWriter_close”的前一个定义
+c:\users\jn wu\desktop\cpp\cpp\main\rs232dll\rs232dll\tiff\tinytiffwriter.c(1083): warning C4273: “TinyTIFFWriter_getLastError”: dll 链接不一致
+  c:\users\jn wu\desktop\cpp\cpp\main\rs232dll\rs232dll\tiff\tinytiffwriter.h(72): note: 参见“TinyTIFFWriter_getLastError”的前一个定义
+c:\users\jn wu\desktop\cpp\cpp\main\rs232dll\rs232dll\tiff\tinytiffwriter.c(1089): warning C4273: “TinyTIFFWriter_wasError”: dll 链接不一致
+  c:\users\jn wu\desktop\cpp\cpp\main\rs232dll\rs232dll\tiff\tinytiffwriter.h(80): note: 参见“TinyTIFFWriter_wasError”的前一个定义
+c:\users\jn wu\desktop\cpp\cpp\main\rs232dll\rs232dll\tiff\tinytiffwriter.c(1095): warning C4273: “TinyTIFFWriter_success”: dll 链接不一致
+  c:\users\jn wu\desktop\cpp\cpp\main\rs232dll\rs232dll\tiff\tinytiffwriter.h(88): note: 参见“TinyTIFFWriter_success”的前一个定义
+c:\users\jn wu\desktop\cpp\cpp\main\rs232dll\rs232dll\tiff\tinytiffwriter.c(1102): warning C4273: “TinyTIFFWriter_getVersion”: dll 链接不一致
+  c:\users\jn wu\desktop\cpp\cpp\main\rs232dll\rs232dll\tiff\tinytiffwriter.h(58): note: 参见“TinyTIFFWriter_getVersion”的前一个定义
+  正在生成代码...
+  LINK : 没有找到 C:\Users\JN Wu\Desktop\cpp\cpp\main\RS232DLL\x64\Debug\mEDSR-STORM.exe 或上一个增量链接没有生成它；正在执行完全链接
+    正在创建库 C:\Users\JN Wu\Desktop\cpp\cpp\main\RS232DLL\x64\Debug\mEDSR-STORM.lib 和对象 C:\Users\JN Wu\Desktop\cpp\cpp\main\RS232DLL\x64\Debug\mEDSR-STORM.exp
+DataLoader.obj : warning LNK4217: 本地定义的符号 TinyTIFFReader_open 在函数 "public: bool __cdecl DataLoader::imgRead(void)" (?imgRead@DataLoader@@QEAA_NXZ) 中导入
+DataLoader.obj : warning LNK4217: 本地定义的符号 TinyTIFFReader_getLastError 在函数 "public: bool __cdecl DataLoader::imgRead(void)" (?imgRead@DataLoader@@QEAA_NXZ) 中导入
+DataLoader.obj : warning LNK4217: 本地定义的符号 TinyTIFFReader_wasError 在函数 "public: bool __cdecl DataLoader::imgRead(void)" (?imgRead@DataLoader@@QEAA_NXZ) 中导入
+DataLoader.obj : warning LNK4217: 本地定义的符号 TinyTIFFReader_hasNext 在函数 "public: bool __cdecl DataLoader::imgRead(void)" (?imgRead@DataLoader@@QEAA_NXZ) 中导入
+DataLoader.obj : warning LNK4217: 本地定义的符号 TinyTIFFReader_readNext 在函数 "public: bool __cdecl DataLoader::imgRead(void)" (?imgRead@DataLoader@@QEAA_NXZ) 中导入
+DataLoader.obj : warning LNK4217: 本地定义的符号 TinyTIFFReader_getWidth 在函数 "public: bool __cdecl DataLoader::imgRead(void)" (?imgRead@DataLoader@@QEAA_NXZ) 中导入
+DataLoader.obj : warning LNK4217: 本地定义的符号 TinyTIFFReader_getHeight 在函数 "public: bool __cdecl DataLoader::imgRead(void)" (?imgRead@DataLoader@@QEAA_NXZ) 中导入
+DataLoader.obj : warning LNK4217: 本地定义的符号 TinyTIFFReader_getImageDescription 在函数 "public: bool __cdecl DataLoader::imgRead(void)" (?imgRead@DataLoader@@QEAA_NXZ) 中导入
+DataLoader.obj : warning LNK4217: 本地定义的符号 TinyTIFFReader_getBitsPerSample 在函数 "public: bool __cdecl DataLoader::imgRead(void)" (?imgRead@DataLoader@@QEAA_NXZ) 中导入
+DataLoader.obj : warning LNK4217: 本地定义的符号 TinyTIFFReader_getSamplesPerPixel 在函数 "public: bool __cdecl DataLoader::imgRead(void)" (?imgRead@DataLoader@@QEAA_NXZ) 中导入
+DataLoader.obj : warning LNK4217: 本地定义的符号 TinyTIFFReader_getSampleData 在函数 "public: bool __cdecl DataLoader::imgRead(void)" (?imgRead@DataLoader@@QEAA_NXZ) 中导入
+DataLoader.obj : warning LNK4217: 本地定义的符号 TinyTIFFReader_countFrames 在函数 "public: bool __cdecl DataLoader::imgRead(void)" (?imgRead@DataLoader@@QEAA_NXZ) 中导入
+sampleOnnxMNIST.obj : warning LNK4217: 本地定义的符号 TinyTIFFWriter_open 在函数 "public: bool __cdecl SampleOnnxMNIST::infer(void)" (?infer@SampleOnnxMNIST@@QEAA_NXZ) 中导入
+sampleOnnxMNIST.obj : warning LNK4217: 本地定义的符号 TinyTIFFWriter_writeImage 在函数 "public: bool __cdecl SampleOnnxMNIST::infer(void)" (?infer@SampleOnnxMNIST@@QEAA_NXZ) 中导入
+sampleOnnxMNIST.obj : warning LNK4217: 本地定义的符号 TinyTIFFWriter_close 在函数 "public: bool __cdecl SampleOnnxMNIST::infer(void)" (?infer@SampleOnnxMNIST@@QEAA_NXZ) 中导入
+  RS232DLL.vcxproj -> C:\Users\JN Wu\Desktop\cpp\cpp\main\RS232DLL\x64\Debug\mEDSR-STORM.exe
