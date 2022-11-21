@@ -38,6 +38,9 @@
     <ClInclude Include="dll.h">
       <Filter>javaTop</Filter>
     </ClInclude>
+    <ClInclude Include="common\argsParser.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DataLoader.cpp">

@@ -8,17 +8,17 @@ using namespace std;
 
 int main(int argc, char** argv)
 {
-	// 多线程
-	std::mutex* pMutex = new std::mutex;								// 互斥量
-	std::condition_variable* pCondVal = new std::condition_variable;	// 条件变量
-	bool isArrFull = false;	// batch 数组是否已经满了，可以取数据
-	bool isDataTakeOff = false;	// 数据是否已经取走了
-	bool isProcessOver = false;	// 进程结束
+	// Multiple thread
+	std::mutex* pMutex = new std::mutex;								// Mutex quantity
+	std::condition_variable* pCondVal = new std::condition_variable;	// Conditional variable
+	bool isArrFull = false;	// If the batch array is full. If full, it can fetch data
+	bool isDataTakeOff = false;	// Whether the data has been taken
+	bool isProcessOver = false;	// Process is over
 
-	/**************************数据加载初始化**********************************/
+	/**************************Initialization of data load**********************************/
 	SampleOnnxMNIST sample;
-	string inputDataDir = "C:\\Users\\JN Wu\\Desktop\\cpp\\cpp\\data";
-	string outputDataDir= "C:\\Users\\JN Wu\\Desktop\\cpp\\cpp\\result";
+	string inputDataDir = "C:\\Users\\JN Wu\\Desktop\\cpp\\cpp\\data";	//The raw images folder
+	string outputDataDir= "C:\\Users\\JN Wu\\Desktop\\cpp\\cpp\\result";//The result folder
 
 	string fileName = inputDataDir + "\\" + "rawImg_256x256.tif";
 	int batchSize	= 13;
@@ -27,21 +27,21 @@ int main(int argc, char** argv)
 	int scaleFactor = 8;
 
 	sample.dataloader.init(fileName, batchSize, pMutex, pCondVal, &isArrFull, &isProcessOver, &isDataTakeOff, fp16);
-	/**************************网络推断初始化**********************************/
-	auto sampleTest = sample::gLogger.defineTest("my tensorRT", argc, argv);	// 定义一个日志类
-	sample::gLogger.reportTestStart(sampleTest);								// 记录日志的开始
+	/**************************Initialization of network inference**********************************/
+	auto sampleTest = sample::gLogger.defineTest("my tensorRT", argc, argv);	// Define a logging class
+	sample::gLogger.reportTestStart(sampleTest);								// The start of logging
 
-	// 【】参数解析
+	// 【】Parameter analysis
 	sample.initializeSampleParams(inputDataDir, outputDataDir, scaleFactor, modelType, pMutex, pCondVal, &isArrFull, &isProcessOver, &isDataTakeOff, fp16);	// 初始化参数		
 
-	// 【】构建网络
+	// 【】Constructing a Network
 	if (!sample.build())	return sample::gLogger.reportFail(sampleTest);		// 
 
-	/**************************网络推断执行**********************************/
-	auto startTime = chrono::high_resolution_clock::now();	// 当前时钟
-	// 【】推断，多线程
-	thread myThreadDataLoad(&DataLoader::imgRead, std::ref(sample.dataloader));	// 线程1，不断往数组中加载数据
-	thread myThreadInfer(&SampleOnnxMNIST::infer, std::ref(sample));			// 线程2，不断取出数据，并作推理
+	/**************************Network inference execution**********************************/
+	auto startTime = chrono::high_resolution_clock::now();	// Current clock
+	// 【】Infer,multiple thread
+	thread myThreadDataLoad(&DataLoader::imgRead, std::ref(sample.dataloader));	// Thread 1，Keep loading data into the array
+	thread myThreadInfer(&SampleOnnxMNIST::infer, std::ref(sample));			// Thread 2，Keep pulling out the data and inferring
 
 	myThreadDataLoad.join();
 	myThreadInfer.join();
@@ -50,10 +50,10 @@ int main(int argc, char** argv)
 	float totalTime = chrono::duration<float, milli>(endTime - startTime).count();
 
 	cout << "total time：" << totalTime << " ms" << endl;
-	/**************************内存释放**********************************/
+	/**************************Free memory**********************************/
 	sample.dataloader.deInit();
-	delete pMutex;				// 释放互斥量
-	delete pCondVal;			// 释放条件变量
+	delete pMutex;				// Release the mutex
+	delete pCondVal;			// Release conditional variable
 
 	sample.deinit();
 

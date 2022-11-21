@@ -9,25 +9,19 @@ using namespace std;
 int main00(int argc, char** argv,string inputDataDir, string outputDataDir, int batchSize, int modelType, int scaleFactor, bool fp16)
 {
 	// 多线程
-	std::mutex* pMutex = new std::mutex;								// 互斥量
-	std::condition_variable* pCondVal = new std::condition_variable;	// 条件变量
-	bool isArrFull			= false;	// batch 数组是否已经满了，可以取数据
-	bool isDataTakeOff		= false;	// 数据是否已经取走了
-	bool isProcessOver		= false;	// 进程结束
+	std::mutex* pMutex = new std::mutex;								// Mutex quantity
+	std::condition_variable* pCondVal = new std::condition_variable;	// Conditional variable
+	bool isArrFull			= false;	// If the batch array is full. If full, it can fetch data
+	bool isDataTakeOff		= false;	// Whether the data has been taken
+	bool isProcessOver		= false;	// Process is over
 
-	/**************************数据加载初始化**********************************/
+	/**************************Initialization of data load**********************************/
 	SampleOnnxMNIST sample;
-	//string inputDataDir = "C:\\Users\\JN Wu\\Desktop\\cpp\\cpp\\data";
-	//string outputDataDir= "C:\\Users\\JN Wu\\Desktop\\cpp\\cpp\\result";
 
 	string fileName = inputDataDir + "\\"+ "rawImg_256x256.tif";
-	//int batchSize	= 13;
-	//bool fp16		= false;
-	//int modelType	= 256;
-	//int scaleFactor = 8;
 
 	sample.dataloader.init(fileName, batchSize,pMutex,pCondVal, &isArrFull,&isProcessOver,&isDataTakeOff,fp16);
-	/**************************网络推断初始化**********************************/
+	/**************************Initialization of network inference**********************************/
 	auto sampleTest = sample::gLogger.defineTest("my tensorRT", argc, argv);	// 定义一个日志类
 	sample::gLogger.reportTestStart(sampleTest);								// 记录日志的开始
 

@@ -154,6 +154,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="common\argsParser.h" />
     <ClInclude Include="cudaImageAdd.h" />
     <ClInclude Include="DataLoader.h" />
     <ClInclude Include="dll.h" />
