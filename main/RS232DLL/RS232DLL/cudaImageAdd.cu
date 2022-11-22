@@ -7,59 +7,58 @@ using namespace std;
 
 //bool cudaImageAdd::init()
 //{
-//	// 构建输入图像主机内存、设备内存
+//	【1】 Build input image host memory and device memory
 //	this->memorySize = imgHeight * imgWidth * batchSize;
 //	this->renderImg_host  = new float[memorySize];
 //	cudaMalloc((void**)&this->renderImg_device, memorySize*sizeof(float));
 //
-//	// 初始化主机内存
+//	****Initialize the host memory
 //	//memset(this->renderImg_host, 0, memorySize*sizeof(float));
 //	for (int i = 0; i < imgHeight*imgWidth*batchSize;i++)
 //	{
 //		renderImg_host[i] = 1;
 //	}
 //
-//	// 将输入图像主机数值拷贝到设备
+//	****Copy the input image host value to the device
 //	cudaError_t state = cudaMemcpy(this->renderImg_device, this->renderImg_host, this->memorySize * sizeof(float), cudaMemcpyHostToDevice);
-//	cout << "输入图像是否出错：" << state << endl;
+//	cout << "Input image error：" << state << endl;
 //
 //	//float* test = new float[2048 * 2048 * 13];
 //	//cudaMemcpy(test, renderImg_device, memorySize * sizeof(float), cudaMemcpyDeviceToHost);
 //
-//	// 构建输出图像主机内存，设备内存
+//	****Build output image host memory, device memory
 //	this->renderImgOut_host = new float[imgHeight*imgWidth];
 //	cudaMalloc((void**)&this->renderImgOut_device, imgHeight*imgWidth * sizeof(float));
-//
 //
 //	return true;
 //}
 //
 //bool cudaImageAdd::deinit()
 //{
-//	// 释放主机内存
+//	****Free host memory
 //	delete[] this->renderImg_host;
 //	cudaError state = cudaFree(this->renderImg_device);
-//	cout << "输入图像设备内存释放是否出错：" << state << endl;
+//	cout << "Input image device memory release error：" << state << endl;
 //
 //	delete[] this->renderImgOut_host;
 //	state =  cudaFree(this->renderImgOut_device);
-//	cout << "输出图像设备内存释放是否出错：" << state << endl;
+//	cout << "Output image device memory release error：" << state << endl;
 //	return true; 
 //}
 //
 //bool cudaImageAdd::render() 
 //{
-//	//【2】 数据的加减
+//	【2】 Addition and subtraction of data
 //	int threadPerBlock = 256;
 //	int blockNums = (imgHeight * imgWidth + threadPerBlock  -1)/ threadPerBlock;
 //
 //	for(int i = 0;i<10;i++)
 //		imgAdd <<<blockNums, threadPerBlock >>> (renderImg_device, renderImgOut_device, imgWidth, imgHeight, batchSize);
 //
-//	//【3】 计算后的数据拷贝到主机
+//	【3】 Copy the calculated data to the host
 //	cudaError_t state = cudaMemcpy(this->renderImgOut_host, this->renderImgOut_device, imgHeight * imgWidth * sizeof(float), cudaMemcpyDeviceToHost);
 //
-//	cout << "输出图像是否出错：" << state << endl;
+//	cout << "Output image error：" << state << endl;
 //	printf("pause");
 //	return true;
 //}

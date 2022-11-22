@@ -79,15 +79,15 @@ struct UffSampleParams : public SampleParams
 //!
 struct Args
 {
-    bool runInInt8{false};		// C++ 11语法，是否用INT8精度运行
-    bool runInFp16{false};		// 是否用FP16精度运行
-    bool help{false};			// 是否打印help信息
-    int32_t useDLACore{-1};		// 是否使用DLA核
-    int32_t batch{1};			// batchsize
-    std::vector<std::string> dataDirs; // 数据文件夹的位置
-    std::string saveEngine;		// 存储引擎？
-    std::string loadEngine;		// 加载引擎？
-    bool useILoop{false};		// TODO 未知
+    bool runInInt8{false};		
+    bool runInFp16{false};		
+    bool help{false};			
+    int32_t useDLACore{-1};		
+    int32_t batch{1};			
+    std::vector<std::string> dataDirs; 
+    std::string saveEngine;		
+    std::string loadEngine;		
+    bool useILoop{false};		
 };
 
 //!

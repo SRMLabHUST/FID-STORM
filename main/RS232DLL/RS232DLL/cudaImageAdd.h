@@ -4,16 +4,16 @@
 class cudaImageAdd
 {
 public:
-	int memorySize;		// 数据大小
+	int memorySize;		// Data size
 	int imgWidth  = 2048;
 	int imgHeight = 2048;
 	int batchSize = 13;
 
-	// 输入数据
+	// Input data
 	float* renderImg_host;
 	float* renderImg_device;
 
-	// 输出数据
+	// Output data
 	float* renderImgOut_device;
 	float* renderImgOut_host;
 

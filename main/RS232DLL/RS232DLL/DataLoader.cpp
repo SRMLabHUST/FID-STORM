@@ -14,17 +14,17 @@
 using namespace half_float;
 using namespace std;
 
-/****************************DataLoader的函数实现*********************************************/
+/****************************The function implementation of DataLoader*********************************************/
 bool DataLoader::init(string fileName, int batchSize, std::mutex* pMutex, std::condition_variable* pCondVal,bool* pIsArrFull,bool * pIsProcessOver, bool* pIsDataTakeOff,bool fp16)
 {
 	this->fileName  = fileName;
 	this->batchSize = batchSize;
 
-	this->pMutex			= pMutex;			// 互斥量（不允许拷贝构造）
-	this->pCondVal			= pCondVal;			// 条件变量
-	this->pIsArrFull		= pIsArrFull;		// 数组是否已满
-	this->pIsProcessOver	= pIsProcessOver;	// 进程是否结束 
-	this->pIsDataTakeOff	= pIsDataTakeOff;	// 数据是否已经取走了
+	this->pMutex			= pMutex;			// Mutex (copy constructs are not allowed)
+	this->pCondVal			= pCondVal;			// Conditional variable
+	this->pIsArrFull		= pIsArrFull;		// Whether the array is full
+	this->pIsProcessOver	= pIsProcessOver;	// Whether the process is over 
+	this->pIsDataTakeOff	= pIsDataTakeOff;	// Whether the data has been taken
 	this->fp16 = fp16;
 
 	cout << "init success!" << endl;
@@ -34,7 +34,7 @@ bool DataLoader::init(string fileName, int batchSize, std::mutex* pMutex, std::c
 bool DataLoader::imgRead()
 {
 	TinyTIFFReaderFile* tiffr = NULL;
-	tiffr = TinyTIFFReader_open(this->fileName.c_str());		// 打开文件
+	tiffr = TinyTIFFReader_open(this->fileName.c_str());		// Open file
 	if (!tiffr) {
 		std::cout << "    ERROR reading (not existent, not accessible or no TIFF file)\n";
 	}
@@ -47,84 +47,84 @@ bool DataLoader::imgRead()
 		else
 		{
 			std::cout << "    ImageDescription:\n" << TinyTIFFReader_getImageDescription(tiffr) << "\n";
-			imageTotal = TinyTIFFReader_countFrames(tiffr);				// 图像总数	
+			imageTotal = TinyTIFFReader_countFrames(tiffr);				// The total of images	
 			std::cout << "    frames: " << imageTotal << "\n";
 
-			const uint16_t samples = TinyTIFFReader_getSamplesPerPixel(tiffr);			// 图像每个像素的采样个数
-			const uint16_t bitspersample = TinyTIFFReader_getBitsPerSample(tiffr, 0);	// 第i号通道的位数
+			const uint16_t samples = TinyTIFFReader_getSamplesPerPixel(tiffr);			// The number of samples per pixel of the image
+			const uint16_t bitspersample = TinyTIFFReader_getBitsPerSample(tiffr, 0);	// The number of bits in channel i
 			std::cout << "    each pixel has " << samples << " samples with " << bitspersample << " bits each\n";
 
-			imageWidth	= TinyTIFFReader_getWidth(tiffr);				// 图像宽高
+			imageWidth	= TinyTIFFReader_getWidth(tiffr);				// Image width and height
 			imageHeight = TinyTIFFReader_getHeight(tiffr);
 
-			// 创建二维数组，并往里面填写数据
+			// Create a two-dimensional array and fill it with data
 			if (!fp16)
-				this->imgRaw = new float[batchSize*imageHeight*imageWidth];					// 多少个batch
+				this->imgRaw = new float[batchSize*imageHeight*imageWidth];					// The number of batch
 			else
-				this->imgRaw_fp16 = new half[batchSize*imageHeight*imageWidth];				// 
+				this->imgRaw_fp16 = new half[batchSize*imageHeight*imageWidth];				
 
 			imgTemp = new unsigned short[imageHeight*imageWidth];
-			// 依次读取batch size的数据
-			while (curFrame < (curBatch + 1)*batchSize && curFrame < imageTotal)					// 小于batchSize大小，小于图像总数
+			// Read batch size data in sequence
+			while (curFrame < (curBatch + 1)*batchSize && curFrame < imageTotal)			// Smaller than batchSize, and smaller than the total number of images
 			{
 				if (curFrame % batchSize == 0)
 				{
 					curBatch++;
-					//cout << "*************************当前batch：" << curBatch << "*********************" << endl;
+					//cout << "*************************Current batch：" << curBatch << "*********************" << endl;
 				}
 
-				// 阻塞，所有arr都被填满了
+				// Blocked. All arr are filled
 				std::unique_lock<mutex> sbguard1(*this->pMutex);
 				this->pCondVal->wait(sbguard1, [this] {
-					if (curFrame != 0 && curFrame % batchSize == 0 && !*pIsDataTakeOff )		// 数据已准备好，但还没拿走
+					if (curFrame != 0 && curFrame % batchSize == 0 && !*pIsDataTakeOff )		// The data is ready, but hasn't been taken
 					{
 						*pIsArrFull = true;
-						pCondVal->notify_one();				// 通知可以来拿数据了
-						//cout << "threadID:"<<std::this_thread::get_id()<<"可以来拿数据了" << endl;
-						return false;						// 已经填满了,阻塞
+						pCondVal->notify_one();				// Data is availavle and ready to pick up 
+						//cout << "threadID:"<<std::this_thread::get_id()<<"Data is availavle and ready to pick up " << endl;
+						return false;						// It's full, blocked
 					}
 
 					*pIsDataTakeOff = false;	
 					return true;
 				});
 
-				//cout << "threadID:" << std::this_thread::get_id() << "阻塞状态解开了" << endl;
-				//	TinyTIFFReader_getSampleData(tiffr, imgRaw + (curFrame%batchSize) * imageWidth*imageHeight, 0);		// 读取通道0的数据，只有一个通道
-				TinyTIFFReader_getSampleData(tiffr, imgTemp, 0);		// 读取通道0的数据，只有一个通道
-				imageNormalize(curFrame);								// 归一化，并将数据拷贝到imgRaw中
+				//cout << "threadID:" << std::this_thread::get_id() << "The blockage is unblocked" << endl;
+				//	TinyTIFFReader_getSampleData(tiffr, imgRaw + (curFrame%batchSize) * imageWidth*imageHeight, 0);		// Read the data of channel 0. There is only one channel
+				TinyTIFFReader_getSampleData(tiffr, imgTemp, 0);		// Read the data of channel 0. There is only one channel
+				imageNormalize(curFrame);								// Normalize ,and copy the data to imgRaw
 				sbguard1.unlock();
 
-				//cout << "threadID:" << std::this_thread::get_id() << "当前帧数：" << curFrame << endl;
+				//cout << "threadID:" << std::this_thread::get_id() << "Current frame：" << curFrame << endl;
 
-				if (TinyTIFFReader_hasNext(tiffr))				// 图像索引移到下一张图像
+				if (TinyTIFFReader_hasNext(tiffr))				// The image index moves to the next image
 				{
-					TinyTIFFReader_readNext(tiffr);				// 读取下一帧,指针移动到下一帧图像
-					curFrame++;									// 下一帧	
+					TinyTIFFReader_readNext(tiffr);				// Read the next frame, the pointer moves to the next frame image
+					curFrame++;									// The next frame	
 				}
 				else
 				{
 					int imgLeftNums = batchSize - imageTotal % batchSize;
 					if (imgLeftNums == batchSize) imgLeftNums = 0;
 
-					// 竞争互斥锁
+					// Competing mutex
 					std::unique_lock<mutex> sbguard1(*this->pMutex);
 					if(!fp16)
-						memset(imgRaw + ((curFrame + 1) % batchSize) * imageWidth * imageHeight, 0, imgLeftNums * imageWidth * imageHeight * sizeof(float));	// 最后一个batch剩余图像全部置为0
+						memset(imgRaw + ((curFrame + 1) % batchSize) * imageWidth * imageHeight, 0, imgLeftNums * imageWidth * imageHeight * sizeof(float));	// All the remaining images of the last batch are set to 0
 					else
-						memset(imgRaw_fp16 + ((curFrame + 1) % batchSize) * imageWidth * imageHeight, 0, imgLeftNums * imageWidth * imageHeight * sizeof(half_float::half));	// 最后一个batch剩余图像全部置为0
+						memset(imgRaw_fp16 + ((curFrame + 1) % batchSize) * imageWidth * imageHeight, 0, imgLeftNums * imageWidth * imageHeight * sizeof(half_float::half));	// All the remaining images of the last batch are set to 0
 					this->pCondVal->wait(sbguard1, [this]{	
-						if (!*pIsDataTakeOff)		// 数据已满，没有拿走
+						if (!*pIsDataTakeOff)		// The data is full and not taken away
 						{
 							*pIsArrFull = true;
-							pCondVal->notify_one();	// 通知可以来拿数据了
-							return false;			// 阻塞
+							pCondVal->notify_one();	// The data is ready to pick up
+							return false;			// Blocking
 						}
 						return true;
 					});				
 
-					//cout << "threadID:" << std::this_thread::get_id() << "剩余帧数：" << imgLeftNums << endl;
-					curFrame++;									// 退出当前循环
-					*pIsProcessOver = true;		// 当前进程可结束了
+					//cout << "threadID:" << std::this_thread::get_id() << "Remaining frame：" << imgLeftNums << endl;
+					curFrame++;									// Exit the current loop
+					*pIsProcessOver = true;		// The current process is finished
 
 					//Mat img(imageHeight*batchSize, imageWidth, CV_32FC1, imgRaw);
 					//imwrite("img.tif", img);
@@ -140,7 +140,7 @@ bool DataLoader::imgRead()
 
 bool DataLoader::deInit()
 {
-	// 释放分配的内存
+	// Frees allocated memory
 	delete[] imgRaw;
 	delete[] imgTemp;
 	return true;
@@ -148,10 +148,10 @@ bool DataLoader::deInit()
 
 bool DataLoader::imageNormalize(int curFrame)
 {
-	// 最大最小值查找
+	// Max-min search
 	imgMaxMinFind();			
 
-	// 归一化
+	// Normalization
 	for (int row = 0; row < imageHeight; row++)
 	{
 		for (int col=0; col < imageWidth; col++)
@@ -172,7 +172,7 @@ bool DataLoader::imageNormalize(int curFrame)
 	return true;
 }
 
-// 最大最小值查找
+// Max-min search
 void DataLoader::imgMaxMinFind()
 {
 	for (int row = 0; row < imageHeight; row++)
@@ -191,11 +191,11 @@ void DataLoader::imgMaxMinFind()
 
 int main_dataloader_00()
 {
-	// 多线程
-	std::mutex* pMutex = new std::mutex;								// 互斥量
-	std::condition_variable* pCondVal = new std::condition_variable;	// 条件变量
+	// Multiple thread
+	std::mutex* pMutex = new std::mutex;								// Mutex quantity
+	std::condition_variable* pCondVal = new std::condition_variable;	// Conditional variable
 	bool isArrFull		= false;
-	bool isProcessOver	= false;										// 进程是否结束
+	bool isProcessOver	= false;										// Whether the process is over
 	bool isDataTakeOff	= false;
 
 	DataLoader dataloader;
@@ -207,5 +207,5 @@ int main_dataloader_00()
 	dataloader.deInit();
 
 	system("pause");
-	return 0;  // 返回真值
+	return 0;  // Return true value
 }

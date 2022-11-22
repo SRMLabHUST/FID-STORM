@@ -32,7 +32,7 @@ int main(int argc, char** argv)
 	sample::gLogger.reportTestStart(sampleTest);								// The start of logging
 
 	// 【】Parameter analysis
-	sample.initializeSampleParams(inputDataDir, outputDataDir, scaleFactor, modelType, pMutex, pCondVal, &isArrFull, &isProcessOver, &isDataTakeOff, fp16);	// 初始化参数		
+	sample.initializeSampleParams(inputDataDir, outputDataDir, scaleFactor, modelType, pMutex, pCondVal, &isArrFull, &isProcessOver, &isDataTakeOff, fp16);	// Initialization parameters		
 
 	// 【】Constructing a Network
 	if (!sample.build())	return sample::gLogger.reportFail(sampleTest);		// 

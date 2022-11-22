@@ -4,12 +4,12 @@
 #include <windows.h>
 using namespace std;
 
-//硬件初始化
+//Hardware Initialization
 
 JNIEXPORT jint JNICALL Java_dll_Initialization
 (JNIEnv *env, jobject obj, jstring jinputDataDir, jstring joutputDataDir, jdouble jbatchSize, jdouble jmodelType, jdouble jAmplification , jboolean jfp)
 {
-	// 打开控制台
+	// Open the console
 	AllocConsole();
 	freopen("CONOUT$", "a+", stdout);
 
@@ -34,7 +34,7 @@ JNIEXPORT jint JNICALL Java_dll_Initialization
 	bool fp = jfp;
 	main00(argc, argv, inputDataDir, outputDataDir, batchSize, modelType, Amplification, fp);
 
-	//释放指针jF、jM
+	//Release pointer jF、jM
 	env->ReleaseStringUTFChars(jinputDataDir, jF);
 	env->ReleaseStringUTFChars(joutputDataDir, jM);
 
