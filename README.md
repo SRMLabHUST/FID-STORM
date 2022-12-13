@@ -2,6 +2,9 @@
 
 Real-time processing for Single Molecule Localization Microscopy with Deep Learning
 
+![image](https://user-images.githubusercontent.com/40757503/207221754-2cfdb50a-df23-474c-93dd-8fe1233a4fe7.png)
+
+
 For more details, please refer to ***User‘s Guide of FID-STORM.pdf***.
 
 
