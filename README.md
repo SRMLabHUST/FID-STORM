@@ -5,7 +5,7 @@ FID-STORM is a real-time processing method for single molecule localization micr
 The following picture shows the schematic comparison of proposed FID-STORM with the conventional Interpolation-based SMLM model.
 ![](https://github.com/SRMLabHUST/FID-STORM/blob/main/data/scheme.png)
 
-For more details, please refer to ***User‘s Guide of FID-STORM.pdf*** and our paper "Deep learning using residual deconvolutional network enables real-time high-density single-molecule localization microscopy".
+For more details, please refer to ***User‘s Guide of FID-STORM.pdf*** and our paper ***Deep learning using residual deconvolutional network enables real-time high-density single-molecule localization microscopy***.
 
 The repository consists of 3 folders, that are data, ImageJ plugin, and Source code.
 
