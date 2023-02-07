@@ -1,6 +1,6 @@
 # FID-STORM
 
-FID-STORM is a real-time processing method for single molecule localization microscopy with deep learning, which is based on improved residual convolutional network. This method can achieve real-time processing of raw images up to 256×256 pixels @ Nvidia RTX 2080 Ti graphic card at a speed of 7.31 ms/frame, shorter than the typical exposure time of 10~30 ms. Moreover, compared with a popular interpolated image-based method called Deep-STORM, FID-STORM enables a speed gain of ~25 times, without loss of reconstruction accuracy.
+FID-STORM is a real-time processing method for single molecule localization microscopy with deep learning, which is based on improved residual convolutional network. This method can achieve real-time processing of raw images up to 256×256 pixels @ Nvidia RTX 2080 Ti graphic card with a speed of 7.31 ms/frame, shorter than the typical exposure time of 10~30 ms. Moreover, compared with a popular interpolated image-based method called Deep-STORM, FID-STORM enables a speed gain of ~25 times, without loss of reconstruction accuracy.
 
 The following picture shows the schematic comparison of proposed FID-STORM with the conventional Interpolation-based SMLM model.
 ![](https://github.com/SRMLabHUST/FID-STORM/blob/main/data/scheme.png)
