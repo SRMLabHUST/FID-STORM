@@ -17,6 +17,7 @@ The repository consists of 3 folders, that are data, ImageJ plugin, and Source c
 
 
 ## How to use
+Reconstruct 10000 raw images with 256 × 256 pixels (that is 27.4 μm × 27.4 μm) in real time.
 
 ![](https://github.com/SRMLabHUST/FID-STORM/blob/main/data/demo.gif)
 
