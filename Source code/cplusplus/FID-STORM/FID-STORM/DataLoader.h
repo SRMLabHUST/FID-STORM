@@ -26,7 +26,7 @@ class DataLoader
 {
 public:
 	// 【1】Initialize all variables and allocate memory
-	bool init(string fileName, int batchSize, std::mutex* pMutex,std::condition_variable* pCondVal,bool* pIsArrFull,bool* isProcessOver,bool* pIsDataTakeOff,bool fp16);
+	bool init(string fileName, int batchSize, std::mutex* pMutex, std::condition_variable* pCondVal, bool* pIsArrFull, bool* isProcessOver, bool* pIsDataTakeOff, bool * pIsSetimgRawToHostBuffer, bool fp16);
 
 	// 【2】Fetch all the blocks and then read the file
 	bool imgRead();
@@ -63,6 +63,8 @@ public:
 	std::mutex * pMutex = nullptr;
 	std::condition_variable * pCondVal = nullptr;
 	bool* pIsArrFull = nullptr;
+	bool* pIsSetimgRawToHostBuffer = nullptr;	// 是否可以设置imgRawToHostBuffer的指针拷贝了
+
 	bool* pIsProcessOver = nullptr;
 	bool* pIsDataTakeOff = nullptr;
 };

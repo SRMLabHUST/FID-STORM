@@ -34,7 +34,7 @@ public:
 	SampleOnnxMNIST(){}	// SampleOnnxMNIST类的构造函数，接收一个sampleCommon::OnnxSampleParams类作为参数，并用来初始化成员mParams，默认成员mEngine为nullptr
 
 	//【】 参数初始化
-	bool initializeSampleParams(string inputDataDir, string outputDataDir, int scaleFactor,int modeType,std::mutex* pMutex, std::condition_variable* pCondVal, bool* pIsArrFull,bool* pIsProcessOver,bool* pIsDataTakeOff,bool fp16);
+	bool initializeSampleParams(string inputDataDir, string outputDataDir, int scaleFactor, int modeType, std::mutex* pMutex, std::condition_variable* pCondVal, bool* pIsArrFull, bool* pIsProcessOver, bool* pIsDataTakeOff, bool* pIsSetimgRawToHostBuffer, bool fp16);
 
 	//【】 构建序列化网络，如果模型存在，则跳过序列化，去序列化
 	bool build();
@@ -92,6 +92,8 @@ public:
 	std::mutex* pMutex;					//不允许拷贝构造
 	std::condition_variable* pCondVal;
 	bool* pIsArrFull		= nullptr;
+	bool* pIsSetimgRawToHostBuffer = nullptr;	// 是否可以设置imgRawToHostBuffer的指针拷贝了
+
 	bool* pIsProcessOver	= nullptr;
 	bool* pIsDataTakeOff	= nullptr; // 数据是否已经取走了
 
