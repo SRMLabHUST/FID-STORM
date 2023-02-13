@@ -14,25 +14,27 @@ int main(int argc, char** argv)
 	bool isArrFull = false;	// If the batch array is full. If full, it can fetch data
 	bool isDataTakeOff = false;	// Whether the data has been taken
 	bool isProcessOver = false;	// Process is over
+	bool pIsSetimgRawToHostBuffer = false;
 
 	/**************************Initialization of data load**********************************/
 	SampleOnnxMNIST sample;
-	string inputDataDir = "C:\\Users\\admin\\Desktop\\FID-STORM-main\\data\\input";	//The raw images folder
-	string outputDataDir= "C:\\Users\\admin\\Desktop\\FID-STORM-main\\data\\output";//The result folder
+	string inputDataDir = "D:\\project\\Pro7-mEDSR-STORM\\code\\FID-STORM-main\\data\\input";	//The raw images folder
+	string outputDataDir= "D:\\project\\Pro7-mEDSR-STORM\\code\\FID-STORM-main\\data\\output";//The result folder
 
 	string fileName = inputDataDir + "\\" + "rawImg_256x256.tif";
-	int batchSize	= 13;
+	//string fileName = inputDataDir + "\\" + "256x256-500.tif";
+	int batchSize	= 8;
 	bool fp16		= false;
 	int modelType	= 256;
 	int scaleFactor = 8;
 
-	sample.dataloader.init(fileName, batchSize, pMutex, pCondVal, &isArrFull, &isProcessOver, &isDataTakeOff, fp16);
+	sample.dataloader.init(fileName, batchSize, pMutex, pCondVal, &isArrFull, &isProcessOver, &isDataTakeOff, &pIsSetimgRawToHostBuffer, fp16);
 	/**************************Initialization of network inference**********************************/
 	auto sampleTest = sample::gLogger.defineTest("my tensorRT", argc, argv);	// Define a logging class
 	sample::gLogger.reportTestStart(sampleTest);								// The start of logging
 
 	// ¡¾¡¿Parameter analysis
-	sample.initializeSampleParams(inputDataDir, outputDataDir, scaleFactor, modelType, pMutex, pCondVal, &isArrFull, &isProcessOver, &isDataTakeOff, fp16);	// Initialization parameters		
+	sample.initializeSampleParams(inputDataDir, outputDataDir, scaleFactor, modelType, pMutex, pCondVal, &isArrFull, &isProcessOver, &isDataTakeOff, &pIsSetimgRawToHostBuffer, fp16);	// Initialization parameters		
 
 	// ¡¾¡¿Constructing a Network
 	if (!sample.build())	return sample::gLogger.reportFail(sampleTest);		// 

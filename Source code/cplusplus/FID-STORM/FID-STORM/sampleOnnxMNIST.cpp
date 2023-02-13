@@ -208,6 +208,14 @@ bool SampleOnnxMNIST::constructNetwork(SampleUniquePtr<nvinfer1::IBuilder>& buil
 
 bool SampleOnnxMNIST::infer()
 {
+	// 保证先分配内存，读取图像，然后再执行推理，否则报空指针内存访问错误
+	std::unique_lock<mutex> sbguard1(*this->pMutex);
+	this->pCondVal->wait(sbguard1, [this] {
+		if (*pIsSetimgRawToHostBuffer == false)			// 未分配imgRaw内存，未拷贝imgRaw到HostBuffer
+			return false;								// 阻塞
+		return true;
+	});
+
 	// 【】创建执行context
     // Create RAII buffer manager object 
 		// 1) 创建缓存
@@ -243,6 +251,8 @@ bool SampleOnnxMNIST::infer()
 	//TinyTIFFWriterFile* tif = TinyTIFFWriter_open(mParams.outputTiffName.data(), 32, TinyTIFFWriter_Float, 0, mParams.outputWidth, mParams.outputHight, TinyTIFFWriter_Greyscale);
 	string outputFileName = mParams.outputDataDir + "\\renderImg_"+to_string(mParams.inputHight)+"x"+ to_string(mParams.inputWidth) +"_.tif";
 	TinyTIFFWriterFile* tif = TinyTIFFWriter_open(outputFileName.c_str(), 32, TinyTIFFWriter_Float, 0, mParams.outputWidth, mParams.outputHight, TinyTIFFWriter_Greyscale);
+
+	sbguard1.unlock();
 
 	// 【】主机内存 -》 设备内存
 	//while (!*pIsProcessOver)
@@ -545,11 +555,12 @@ bool SampleOnnxMNIST::verifyOutput(const samplesCommon::ManagedBuffer& buffers, 
 //!
 //! \brief Initializes members of the params struct using the command line args
 //!
-bool SampleOnnxMNIST::initializeSampleParams(string inputDataDir,string outputDataDir, int scaleFactor,int modelType, std::mutex* pMutex, std::condition_variable* pCondVal, bool* pIsArrFull, bool* pIsProcessOver, bool* pIsDataTakeOff, bool fp16)
+bool SampleOnnxMNIST::initializeSampleParams(string inputDataDir, string outputDataDir, int scaleFactor, int modelType, std::mutex* pMutex, std::condition_variable* pCondVal, bool* pIsArrFull, bool* pIsProcessOver, bool* pIsDataTakeOff, bool* pIsSetimgRawToHostBuffer, bool fp16)
 {
 	this->pMutex			= pMutex;			// 互斥量
 	this->pCondVal			= pCondVal;			// 条件变量
 	this->pIsArrFull		= pIsArrFull;
+	this->pIsSetimgRawToHostBuffer = pIsSetimgRawToHostBuffer;
 	this->pIsProcessOver	= pIsProcessOver;	
 	this->pIsDataTakeOff	= pIsDataTakeOff;	// 数据是否已经取走了 
 
@@ -622,6 +633,8 @@ int main_sampleOnnxMNIST(int argc, char** argv)
 	bool isArrFull		= false;
 	bool isProcessOver	= false;
 	bool isDataTakeOff	= false;
+	bool pIsSetimgRawToHostBuffer = false;
+
 
 	bool fp16 = false;
 
@@ -636,7 +649,7 @@ int main_sampleOnnxMNIST(int argc, char** argv)
 
 	// 【】参数解析
     SampleOnnxMNIST sample;									// 定义一个sample实例,匿名对象的赋值
-	sample.initializeSampleParams(inputDataDir, outputDataDir, scaleFactor, modelType, pMutex, pCondVal, &isArrFull, &isProcessOver, &isDataTakeOff, fp16);	// 初始化参数				
+	sample.initializeSampleParams(inputDataDir, outputDataDir, scaleFactor, modelType, pMutex, pCondVal, &isArrFull, &isProcessOver, &isDataTakeOff, &pIsSetimgRawToHostBuffer, fp16);	// 初始化参数				
 
 	// 【】构建网络
     if (!sample.build())										

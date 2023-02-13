@@ -15,7 +15,7 @@ using namespace half_float;
 using namespace std;
 
 /****************************The function implementation of DataLoader*********************************************/
-bool DataLoader::init(string fileName, int batchSize, std::mutex* pMutex, std::condition_variable* pCondVal,bool* pIsArrFull,bool * pIsProcessOver, bool* pIsDataTakeOff,bool fp16)
+bool DataLoader::init(string fileName, int batchSize, std::mutex* pMutex, std::condition_variable* pCondVal, bool* pIsArrFull, bool * pIsProcessOver, bool* pIsDataTakeOff, bool* pIsSetimgRawToHostBuffer, bool fp16)
 {
 	this->fileName  = fileName;
 	this->batchSize = batchSize;
@@ -23,6 +23,9 @@ bool DataLoader::init(string fileName, int batchSize, std::mutex* pMutex, std::c
 	this->pMutex			= pMutex;			// Mutex (copy constructs are not allowed)
 	this->pCondVal			= pCondVal;			// Conditional variable
 	this->pIsArrFull		= pIsArrFull;		// Whether the array is full
+	this->pIsSetimgRawToHostBuffer = pIsSetimgRawToHostBuffer;
+
+
 	this->pIsProcessOver	= pIsProcessOver;	// Whether the process is over 
 	this->pIsDataTakeOff	= pIsDataTakeOff;	// Whether the data has been taken
 	this->fp16 = fp16;
@@ -62,6 +65,21 @@ bool DataLoader::imgRead()
 				this->imgRaw = new float[batchSize*imageHeight*imageWidth];					// The number of batch
 			else
 				this->imgRaw_fp16 = new half[batchSize*imageHeight*imageWidth];				
+
+
+			// 第一次读图，分配完内存后再通知infer线程将imgRaw指针赋值给HostBuffer
+			*pIsSetimgRawToHostBuffer = true;
+			std::unique_lock<mutex> sbguard1(*this->pMutex);
+			this->pCondVal->wait(sbguard1, [this] {
+				if (*pIsSetimgRawToHostBuffer == true)			// 设置原始图像到HostBuffer的拷贝
+				{
+					pCondVal->notify_one();						// 等this->imgRaw已经分配内存后，再通知infer线程讲imgRaw指针赋值给HostBuffer
+					return true;								// 阻塞
+				}
+				return false;
+			});
+			sbguard1.unlock();
+			
 
 			imgTemp = new unsigned short[imageHeight*imageWidth];
 			// Read batch size data in sequence
@@ -197,11 +215,13 @@ int main_dataloader_00()
 	bool isArrFull		= false;
 	bool isProcessOver	= false;										// Whether the process is over
 	bool isDataTakeOff	= false;
+	bool pIsSetimgRawToHostBuffer = false;
+
 
 	DataLoader dataloader;
 	string fileName = "D:\\project\\Pro7-denseDL\\data\\expriment\\data2\\test\\MMStack_Pos-1_metadata-256x256\\temp1.tif";
 	bool fp16 = false;
-	dataloader.init(fileName, 13,pMutex,pCondVal,&isArrFull,&isProcessOver,&isDataTakeOff,fp16);
+	dataloader.init(fileName, 13, pMutex, pCondVal, &isArrFull, &isProcessOver, &isDataTakeOff, &pIsSetimgRawToHostBuffer, fp16);
 
 	dataloader.imgRead();
 	dataloader.deInit();
